@@ -4,7 +4,7 @@ _A Go library for Devops to retrieve important information from Datadog componen
 ## Moving Parts & Functions
 
 ### Files:
-* `datadog_api.go` -- Imports the Datadog API client, & uses it to make calls to our Datadog instances
+* `datadog_api.go` -- Imports the Datadog API client, & handles the API calls
 * `helpers.go`     -- A home for helper functions that allow us to work through some of the idiocyncracies in Datadog's API
 * `main.go`        -- Self-explanatory. It takes all the user inputs & calls all the things.
 ---
