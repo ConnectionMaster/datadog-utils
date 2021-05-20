@@ -67,7 +67,7 @@ func FindMetric(searchMetric string) map[string][]string{
         expressionWaitGrp.Add(1)
         go func() {
             for _, expressionArray := range expressionsMap {
-                 expressionHits := SearchWidgetExpressionsArray(&expressionArray, searchMetric)
+                 expressionHits := SearchExpressionsArray(&expressionArray, searchMetric)
                  if len(expressionHits) > 1 {
                     searchResults[dash] = expressionHits
                  } else {
@@ -112,7 +112,7 @@ func GetDashboardDetails(dashboardID string) map[string]string {
     dashDetails, _, err := DD_API_CLIENT.DashboardsApi.GetDashboard(CTX, dashboardID)
 
     if err != nil {
-        fmt.Println("ERROR: \n ", err)
+        fmt.Printf("ERROR: %v\n ", err)
     }
     widgetCount := strconv.Itoa(len(dashDetails.Widgets))
     detailsResult = map[string]string{
@@ -135,7 +135,7 @@ func getDashboardWidgets(dashboardID string) *[]datadog.Widget {
 
     dashDetails, _, err := DD_API_CLIENT.DashboardsApi.GetDashboard(CTX, dashboardID)
     if err != nil {
-        fmt.Println("\nERROR: %v\n ", err)
+        fmt.Printf("\nERROR: %v\n ", err)
     }
     widgetsArray = dashDetails.Widgets
     return &widgetsArray
@@ -192,4 +192,16 @@ func GetWidgetExpressions(widgetsArray *[]datadog.Widget) map[int64][]string{
     }
 
     return widgetExpressions
+}
+
+
+func GetMonitors() []datadog.Monitor{
+    var monitorsArray []datadog.Monitor
+
+    monitorsArray, _, err := DD_API_CLIENT.MonitorsApi.ListMonitors(CTX)
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `MonitorsApi.ListMonitors`: %v\n", err)
+    }
+
+    return monitorsArray
 }

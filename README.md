@@ -1,10 +1,10 @@
-# Datadog Utils
+# Medium Datadog Utils
 _A Go library for Devops to retrieve important information from Datadog components_
 
 ## Moving Parts & Functions
 
 ### Files:
-* `datadog_api.go` -- Imports the Datadog API client, & handles the API calls
+* `datadog_api.go` -- Imports the Datadog API client, & uses it to make calls to our Datadog instances
 * `helpers.go`     -- A home for helper functions that allow us to work through some of the idiocyncracies in Datadog's API
 * `main.go`        -- Self-explanatory. It takes all the user inputs & calls all the things.
 ---
@@ -57,25 +57,38 @@ Usage of /var/folders/9d/w68r5sdd787gg_1djyk7jmkm0000gp/T/go-build1368975407/b00
     Example output looks like this:
 ```
 {
+  "abc-n3k-26j": [
+    "sum:server.response.sent{route:paymentwebhook.handlebraintreeevent,status-code:200,$env}.as_count()",
+    "sum:server.response.sent{route:paymentwebhook.handlebraintreeevent,status-code:401,$env}.as_count()",
+    "sum:server.response.sent{route:paymentwebhook.handlebraintreeevent,status-code:500,$env}.as_count()"
+  ],
   "fzi-6va-aag": [
-    "sum:<metric_name>{TAGS,$provider,$environment} by {status-code}.as_count()",
-    "sum:<metric_name>{TAGS}}.as_count()*100"
+    "sum:server.response.sent{env:prod,route:mediummembership.addmembership,$provider,$environment} by {status-code}.as_count()",
+    "sum:server.response.sent{env:prod,route:mediummembership.addmembership,status-code:200,$provider,$environment}.as_count()/sum:server.response.sent{env:prod,route:mediummembership.addmembership,$provider,$environment}.as_count()*100"
   ],
   "n43-std-5sh": [
-    "sum:<metric_name>{TAGS}}.as_count()",
-    "sum:<metric_name>{TAGS}}.as_count()"
-     ]
+    "sum:server.response.sent{service:medium-legacy,$env,$controller,$route,status-category:2xx,$status}.as_count()",
+    "sum:server.response.sent{service:medium-legacy,$env,$controller,$route,status-category:3xx,$status}.as_count()",
+    "sum:server.response.sent{service:medium-legacy,$env,$controller,$route,status-category:4xx,$status}.as_count()",
+    "sum:server.response.sent{service:medium-legacy,$env,$controller,$route,status-category:5xx,$status}.as_count()"
+  ]
 }
 {
-  "Author": "goober@imaginary.com",
+  "Author": "adrian@medium.com",
+  "ID": "abc-n3k-26j",
+  "URL": "/dashboard/abc-n3k-26j/braintree",
+  "Widgets": "14"
+}
+{
+  "Author": "fiona@medium.com",
   "ID": "fzi-6va-aag",
-  "URL": "/dashboard/<dashboardID>/some-dashboard-thing",
+  "URL": "/dashboard/fzi-6va-aag/trial-purchase-real-time-monitoring",
   "Widgets": "6"
 }
 {
-  "Author": "other-goober@imaginary.com",
+  "Author": "lyra@medium.com",
   "ID": "n43-std-5sh",
-  "URL": "/dashboard/<dashboardID>/some-dashboard-thing",
+  "URL": "/dashboard/n43-std-5sh/medium2",
   "Widgets": "25"
 }
 ```
@@ -84,9 +97,9 @@ Usage of /var/folders/9d/w68r5sdd787gg_1djyk7jmkm0000gp/T/go-build1368975407/b00
 ```
 Here are the high-level details: 
 {
-  "Author": "goober@imaginary.com",
+  "Author": "adrian@medium.com",
   "ID": "abc-n3k-26j",
-  "URL": "/dashboard/<dashboardID>/some-dashboard-name",
+  "URL": "/dashboard/abc-n3k-26j/braintree",
   "Widgets": "14"
 }`
 ```
@@ -113,4 +126,4 @@ graph TD
 ```
 ---
 ## Changelog
-2021 - May 19 -- Initial Completion, for personal convenience / use
+2021 - May 19 -- Initial Completion outside of Medium repo, for personal convenience / use

@@ -56,7 +56,7 @@ func CheckIgnoredWidgetDefs(object datadog.WidgetDefinition) bool {
 
 
 
-func SearchWidgetExpressionsArray(expressionsArray *[]string, searchStr string) []string{
+func SearchExpressionsArray(expressionsArray *[]string, searchStr string) []string{
     var resultArray     []string
 
     for _, expression := range *expressionsArray {
