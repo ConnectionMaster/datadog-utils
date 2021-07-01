@@ -1,4 +1,4 @@
-module medium.com/datadog_utils
+module github.com/Medium/datadog-utils
 
 go 1.16
 
